@@ -46,7 +46,7 @@ final class CollectionViewController: UICollectionViewController {
       return
     }
 
-    urls = serialUrls.compactMap { URL(string: $0) }
+    urls = serialUrls.compactMap(URL.init)
   }
 }
 
@@ -59,12 +59,7 @@ extension CollectionViewController {
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "normal", for: indexPath) as! PhotoCell
 
-    if let data = try? Data(contentsOf: urls[indexPath.item]),
-      let image = UIImage(data: data) {
-      cell.display(image: image)
-    } else {
-      cell.display(image: nil)
-    }
+    downloadWithGlobalQueue(at: indexPath)
 
     return cell
   }
@@ -91,3 +86,26 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
   }
 }
 
+// MARK: - Helpers
+
+extension CollectionViewController {
+
+  private func downloadWithGlobalQueue(at indexPath: IndexPath) {
+    DispatchQueue.global(qos: .utility).async { [weak self] in
+      guard let self = self else { return }
+
+      let url = self.urls[indexPath.item]
+
+      guard let data = try? Data(contentsOf: url),
+        let image = UIImage(data: data)
+      else { return }
+
+      DispatchQueue.main.async {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? PhotoCell {
+          cell.display(image: image)
+        }
+      }
+    }
+  }
+
+}
