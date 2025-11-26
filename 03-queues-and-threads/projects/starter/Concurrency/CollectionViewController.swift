@@ -59,7 +59,8 @@ extension CollectionViewController {
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "normal", for: indexPath) as! PhotoCell
 
-    downloadWithGlobalQueue(at: indexPath)
+    cell.display(image: nil)
+    downloadWithUrlSession(at: indexPath)
 
     return cell
   }
@@ -106,6 +107,23 @@ extension CollectionViewController {
         }
       }
     }
+  }
+
+  private func downloadWithUrlSession(at indexPath: IndexPath) {
+    URLSession.shared.dataTask(with: urls[indexPath.item]) {
+      [weak self] data, response, error in
+
+      guard let self,
+        let data,
+        let image = UIImage(data: data)
+      else { return }
+
+      DispatchQueue.main.async {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? PhotoCell {
+          cell.display(image: image)
+        }
+      }
+    }.resume()
   }
 
 }
