@@ -49,7 +49,11 @@ high.async {
 }
 
 for i in 1 ... 10 {
+//    semaphore.wait()
+
     medium.async {
+//        defer { semaphore.signal() }
+
         let waitTime = Double(exactly: arc4random_uniform(7))!
         print("Running medium task \(i)")
         Thread.sleep(forTimeInterval: waitTime)

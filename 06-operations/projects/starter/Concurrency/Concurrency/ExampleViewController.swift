@@ -1,15 +1,15 @@
 /// Copyright (c) 2019 Razeware LLC
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,6 +26,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import UIKit
 
 final class ExampleViewController: UIViewController {
@@ -42,15 +44,31 @@ final class ExampleViewController: UIViewController {
 
     let image = UIImage(named: "dark_road_small")!
 
-    guard let filter = TiltShiftFilter(image: image, radius:3),
-      let output = filter.outputImage else {
-        label.text = "Failed to generate tilt shift image"
-        return
+    let sepiaToneFilter = CIFilter.sepiaTone()
+
+    sepiaToneFilter.intensity = 1.0
+    sepiaToneFilter.inputImage = image.ciImage ?? CIImage(image: image)
+
+    guard let output = sepiaToneFilter.outputImage else {
+      label.text = "Failed to generate tilt shift image"
+
+      return
     }
+
+    //    guard let filter = TiltShiftFilter(image: image, radius:3),
+    //      let output = filter.outputImage else {
+    //        label.text = "Failed to generate tilt shift image"
+    //        return
+    //    }
 
     let context = CIContext()
 
-    guard let cgImage = context.createCGImage(output, from: CGRect(origin: .zero, size: image.size)) else {
+    guard
+      let cgImage = context.createCGImage(
+        output,
+        from: CGRect(origin: .zero, size: image.size)
+      )
+    else {
       label.text = "No image generated"
       return
     }

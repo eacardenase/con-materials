@@ -51,7 +51,7 @@ queue.async(group: group) {
     print("End job 2")
 }
 
-if group.wait(timeout: .now() + 5) == .timedOut {
+if group.wait(timeout: .now() + 10) == .timedOut {
     print("I got tired of waiting")
 } else {
     print("All the jobs have completed")

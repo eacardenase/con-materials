@@ -26,8 +26,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
 import PlaygroundSupport
+import UIKit
 
 /*:
 Tell the playground to continue running, even after it thinks execution has ended.
@@ -39,9 +39,39 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 let group = DispatchGroup()
 let queue = DispatchQueue.global(qos: .userInteractive)
 
+let semaphore = DispatchSemaphore(value: 2)
 
+let base =
+    "https://wolverine.raywenderlich.com/books/con/image-from-rawpixel-id-"
+let ids = [
+    466881, 466910, 466925, 466931, 466978, 467028, 467032, 467042, 467052,
+]
 
-// Because we've not specified a time, this will wait indefinitely
-group.wait()
+let urls = ids.compactMap { URL(string: "\(base)\($0)-jpeg.jpg") }
 
-PlaygroundPage.current.finishExecution()
+var images: [UIImage] = []
+
+for url in urls {
+    semaphore.wait()
+    group.enter()
+
+    URLSession.shared.dataTask(with: url) { data, _, error in
+        defer {
+            group.leave()
+            semaphore.signal()
+        }
+
+        guard error == nil,
+            let data,
+            let image = UIImage(data: data)
+        else { return }
+
+        images.append(image)
+    }.resume()
+}
+
+group.notify(queue: queue) {
+    images.randomElement()
+
+    PlaygroundPage.current.finishExecution()
+}
