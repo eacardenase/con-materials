@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5394F02521864DF5006E754C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5394F02321864DF4006E754C /* LaunchScreen.storyboard */; };
+		A5C173722EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */; };
 		D27437502211DC9F00B1E02F /* TiltShiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274374F2211DC9F00B1E02F /* TiltShiftTableViewController.swift */; };
 		D27437522211DFBB00B1E02F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27437512211DFBB00B1E02F /* PhotoCell.swift */; };
 		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		5394F02421864DF4006E754C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SepiaFilterOperation.swift; sourceTree = "<group>"; };
 		D274374F2211DC9F00B1E02F /* TiltShiftTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltShiftTableViewController.swift; sourceTree = "<group>"; };
 		D27437512211DFBB00B1E02F /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* Concurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +73,7 @@
 				D27437512211DFBB00B1E02F /* PhotoCell.swift */,
 				D2CC8F0E220890C50025B523 /* TiltShiftFilter.swift */,
 				D274374F2211DC9F00B1E02F /* TiltShiftTableViewController.swift */,
+				A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */,
 			);
 			path = Concurrency;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			files = (
 				D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */,
 				D27437522211DFBB00B1E02F /* PhotoCell.swift in Sources */,
+				A5C173722EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift in Sources */,
 				D2CC8F0F220890C50025B523 /* TiltShiftFilter.swift in Sources */,
 				D2CC8F11220C93EF0025B523 /* ExampleViewController.swift in Sources */,
 				D27437502211DC9F00B1E02F /* TiltShiftTableViewController.swift in Sources */,
@@ -294,14 +298,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DZDWNPN8YP;
 				INFOPLIST_FILE = Concurrency/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.concurrency;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eacardenase.concurrency;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -314,14 +318,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DZDWNPN8YP;
 				INFOPLIST_FILE = Concurrency/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.concurrency;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eacardenase.concurrency;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

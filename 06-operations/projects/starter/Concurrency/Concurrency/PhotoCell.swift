@@ -31,13 +31,21 @@ import UIKit
 final class PhotoCell: UITableViewCell {
   @IBOutlet private weak var theImageView: UIImageView!
 
-  func display(image: UIImage?) {
-    guard let image = image else {
-      print("Image could not be displayed.")
+  @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
-      return
+  var isLoading: Bool {
+    get { return activityIndicator.isAnimating }
+    set {
+      if newValue {
+        activityIndicator.startAnimating()
+      } else {
+        activityIndicator.stopAnimating()
+      }
     }
+  }
 
+  func display(image: UIImage?) {
     theImageView.image = image
   }
+
 }

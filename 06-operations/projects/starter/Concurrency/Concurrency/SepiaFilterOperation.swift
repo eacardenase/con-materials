@@ -1,4 +1,4 @@
-/// Copyright (c) 2019 Razeware LLC
+/// Copyright (c) 2025 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -26,48 +26,49 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import CoreImage.CIFilterBuiltins
 import UIKit
 
-class TiltShiftTableViewController: UITableViewController {
+final class SepiaFilterOperation: Operation {
 
-  private let context = CIContext()
-  private let queue = OperationQueue()
+  // MARK: - Properties
 
-  override func tableView(
-    _ tableView: UITableView,
-    numberOfRowsInSection section: Int
-  ) -> Int {
-    return 10
+  var outputImage: UIImage?
+  private let inputImage: UIImage
+  private static let context = CIContext()
+
+  // MARK: - Initializers
+
+  init(image: UIImage) {
+    inputImage = image
+
+    super.init()
   }
 
-  override func tableView(
-    _ tableView: UITableView,
-    cellForRowAt indexPath: IndexPath
-  ) -> UITableViewCell {
-    let cell =
-      tableView.dequeueReusableCell(withIdentifier: "normal", for: indexPath)
-      as! PhotoCell
+  override func main() {
+    let sepiaFilter = CIFilter.sepiaTone()
+    sepiaFilter.intensity = 1.0
+    sepiaFilter.inputImage = inputImage.ciImage ?? CIImage(image: inputImage)
 
-    cell.display(image: nil)
+    guard let output = sepiaFilter.outputImage else {
+      print("Failed to generate sepia filter")
 
-    let imageName = "\(indexPath.row).png"
-    let inputImage = UIImage(named: imageName)!
-
-    let operation = SepiaFilterOperation(image: inputImage)
-
-    operation.completionBlock = {
-      DispatchQueue.main.async {
-        guard let cell = tableView.cellForRow(at: indexPath) as? PhotoCell
-        else { return }
-
-        cell.isLoading = false
-        cell.display(image: operation.outputImage)
-      }
+      return
     }
 
-    queue.addOperation(operation)
+    let fromRect = CGRect(origin: .zero, size: inputImage.size)
 
-    return cell
+    guard
+      let cgImage = SepiaFilterOperation.context.createCGImage(
+        output,
+        from: fromRect
+      )
+    else {
+      print("No image generated")
+
+      return
+    }
+
+    outputImage = UIImage(cgImage: cgImage)
   }
+
 }

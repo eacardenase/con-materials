@@ -126,13 +126,19 @@
                                                 <constraint firstAttribute="width" constant="200" id="DLG-WG-dBs"/>
                                             </constraints>
                                         </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="DwR-zW-ORy">
+                                            <rect key="frame" x="186.66666666666666" y="110" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="MWU-yM-id8" firstAttribute="centerX" secondItem="zss-oW-rkG" secondAttribute="centerX" id="05e-kl-VdF"/>
+                                        <constraint firstItem="DwR-zW-ORy" firstAttribute="centerX" secondItem="MWU-yM-id8" secondAttribute="centerX" id="Agh-F7-6fY"/>
+                                        <constraint firstItem="DwR-zW-ORy" firstAttribute="centerY" secondItem="MWU-yM-id8" secondAttribute="centerY" id="Pkt-9a-fdf"/>
                                         <constraint firstItem="MWU-yM-id8" firstAttribute="top" secondItem="zss-oW-rkG" secondAttribute="top" constant="20" id="lCp-fc-c1v"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="DwR-zW-ORy" id="B9t-h5-wQ0"/>
                                     <outlet property="theImageView" destination="MWU-yM-id8" id="bqX-Dp-73H"/>
                                 </connections>
                             </tableViewCell>
