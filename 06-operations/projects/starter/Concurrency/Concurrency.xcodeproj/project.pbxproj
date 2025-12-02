@@ -10,6 +10,7 @@
 		5394F02521864DF5006E754C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5394F02321864DF4006E754C /* LaunchScreen.storyboard */; };
 		A5A5706A2EDF49D1001C6668 /* Photos.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5A570692EDF49D1001C6668 /* Photos.plist */; };
 		A5A5706C2EDF49ED001C6668 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A5706B2EDF49ED001C6668 /* AsyncOperation.swift */; };
+		A5A5706E2EDF4CBD001C6668 /* NetworkImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A5706D2EDF4CBD001C6668 /* NetworkImageOperation.swift */; };
 		A5C173722EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */; };
 		D27437502211DC9F00B1E02F /* TiltShiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274374F2211DC9F00B1E02F /* TiltShiftTableViewController.swift */; };
 		D27437522211DFBB00B1E02F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27437512211DFBB00B1E02F /* PhotoCell.swift */; };
@@ -24,6 +25,7 @@
 		5394F02421864DF4006E754C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A5A570692EDF49D1001C6668 /* Photos.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Photos.plist; sourceTree = "<group>"; };
 		A5A5706B2EDF49ED001C6668 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		A5A5706D2EDF4CBD001C6668 /* NetworkImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageOperation.swift; sourceTree = "<group>"; };
 		A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SepiaFilterOperation.swift; sourceTree = "<group>"; };
 		D274374F2211DC9F00B1E02F /* TiltShiftTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiltShiftTableViewController.swift; sourceTree = "<group>"; };
 		D27437512211DFBB00B1E02F /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				A5A5706B2EDF49ED001C6668 /* AsyncOperation.swift */,
 				A5A570692EDF49D1001C6668 /* Photos.plist */,
 				A5C173712EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift */,
+				A5A5706D2EDF4CBD001C6668 /* NetworkImageOperation.swift */,
 			);
 			path = Concurrency;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				D27437522211DFBB00B1E02F /* PhotoCell.swift in Sources */,
 				A5C173722EDCFFFA00BDA9C9 /* SepiaFilterOperation.swift in Sources */,
 				D2CC8F0F220890C50025B523 /* TiltShiftFilter.swift in Sources */,
+				A5A5706E2EDF4CBD001C6668 /* NetworkImageOperation.swift in Sources */,
 				D2CC8F11220C93EF0025B523 /* ExampleViewController.swift in Sources */,
 				D27437502211DC9F00B1E02F /* TiltShiftTableViewController.swift in Sources */,
 				A5A5706C2EDF49ED001C6668 /* AsyncOperation.swift in Sources */,
