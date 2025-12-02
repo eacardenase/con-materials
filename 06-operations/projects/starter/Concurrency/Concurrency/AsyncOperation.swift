@@ -26,51 +26,50 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-final class SepiaFilterOperation: AsyncOperation {
+class AsyncOperation: Operation {
 
-  // MARK: - Properties
+  enum State: String {
+    case ready, executing, finished
 
-  var outputImage: UIImage?
-  private let inputImage: UIImage
-  private static let context = CIContext()
-
-  // MARK: - Initializers
-
-  init(image: UIImage) {
-    inputImage = image
-
-    super.init()
+    fileprivate var keyPath: String {
+      return "is\(rawValue.capitalized)"
+    }
   }
 
-  override func main() {
-    let sepiaFilter = CIFilter.sepiaTone()
-    sepiaFilter.intensity = 1.0
-    sepiaFilter.inputImage = inputImage.ciImage ?? CIImage(image: inputImage)
-
-    guard let output = sepiaFilter.outputImage else {
-      print("Failed to generate sepia filter")
-
-      return
+  var state = State.ready {
+    willSet {
+      willChangeValue(forKey: newValue.keyPath)
+      willChangeValue(forKey: state.keyPath)
     }
 
-    let fromRect = CGRect(origin: .zero, size: inputImage.size)
-
-    guard
-      let cgImage = SepiaFilterOperation.context.createCGImage(
-        output,
-        from: fromRect
-      )
-    else {
-      print("No image generated")
-
-      return
+    didSet {
+      didChangeValue(forKey: oldValue.keyPath)
+      didChangeValue(forKey: state.keyPath)
     }
+  }
 
-    outputImage = UIImage(cgImage: cgImage)
+  override var isReady: Bool {
+    return super.isReady && state == .ready
+  }
 
-    state = .finished
+  override var isExecuting: Bool {
+    return state == .executing
+  }
+
+  override var isFinished: Bool {
+    return state == .finished
+  }
+
+  override var isAsynchronous: Bool {
+    return true
+  }
+
+  override func start() {
+    main()
+
+    state = .executing
   }
 
 }
