@@ -36,6 +36,10 @@ final class SepiaFilterOperation: AsyncOperation {
   private let inputImage: UIImage?
   private static let context = CIContext()
 
+  /// Callback which will be run *on the main thread*
+  /// when operation completes.
+  var onImageProcessed: ((UIImage?) -> Void)?
+
   // MARK: - Initializers
 
   init(image: UIImage? = nil) {
@@ -78,6 +82,14 @@ final class SepiaFilterOperation: AsyncOperation {
     }
 
     outputImage = UIImage(cgImage: cgImage)
+
+    if let onImageProcessed {
+      DispatchQueue.main.async { [weak self] in
+        guard let self else { return }
+
+        onImageProcessed(self.outputImage)
+      }
+    }
   }
 
 }

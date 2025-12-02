@@ -85,14 +85,12 @@ class TiltShiftTableViewController: UITableViewController {
 
     filterOperation.addDependency(downloadOperation)
 
-    filterOperation.completionBlock = {
-      DispatchQueue.main.async {
-        guard let cell = tableView.cellForRow(at: indexPath) as? PhotoCell
-        else { return }
+    filterOperation.onImageProcessed = { image in
+      guard let cell = tableView.cellForRow(at: indexPath) as? PhotoCell
+      else { return }
 
-        cell.isLoading = false
-        cell.display(image: filterOperation.image)
-      }
+      cell.isLoading = false
+      cell.display(image: image)
     }
 
     queue.addOperation(downloadOperation)
