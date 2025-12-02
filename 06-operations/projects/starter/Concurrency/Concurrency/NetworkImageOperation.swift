@@ -79,3 +79,7 @@ final class NetworkImageOperation: AsyncOperation {
   }
 
 }
+
+// MARK: - ImageDataProvider
+
+extension NetworkImageOperation: ImageDataProvider {}

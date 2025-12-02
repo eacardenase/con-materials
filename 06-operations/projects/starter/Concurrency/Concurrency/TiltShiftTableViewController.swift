@@ -80,20 +80,23 @@ class TiltShiftTableViewController: UITableViewController {
 
     cell.display(image: nil)
 
-    let url = urls[indexPath.row]
-    let operation = NetworkImageOperation(url: url)
+    let downloadOperation = NetworkImageOperation(url: urls[indexPath.row])
+    let filterOperation = SepiaFilterOperation()
 
-    operation.completionBlock = {
+    filterOperation.addDependency(downloadOperation)
+
+    filterOperation.completionBlock = {
       DispatchQueue.main.async {
         guard let cell = tableView.cellForRow(at: indexPath) as? PhotoCell
         else { return }
 
         cell.isLoading = false
-        cell.display(image: operation.image)
+        cell.display(image: filterOperation.image)
       }
     }
 
-    queue.addOperation(operation)
+    queue.addOperation(downloadOperation)
+    queue.addOperation(filterOperation)
 
     return cell
   }

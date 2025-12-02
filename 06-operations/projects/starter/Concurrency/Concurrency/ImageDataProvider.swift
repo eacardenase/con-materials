@@ -28,64 +28,8 @@
 
 import UIKit
 
-final class SepiaFilterOperation: AsyncOperation {
+protocol ImageDataProvider {
 
-  // MARK: - Properties
-
-  private var outputImage: UIImage?
-  private let inputImage: UIImage?
-  private static let context = CIContext()
-
-  // MARK: - Initializers
-
-  init(image: UIImage? = nil) {
-    inputImage = image
-
-    super.init()
-  }
-
-  override func main() {
-    defer { state = .finished }
-
-    let dependencyImage =
-      dependencies
-      .compactMap { ($0 as? ImageDataProvider)?.image }
-      .first
-
-    guard let inputImage = inputImage ?? dependencyImage else { return }
-
-    let sepiaFilter = CIFilter.sepiaTone()
-    sepiaFilter.intensity = 1.0
-    sepiaFilter.inputImage = inputImage.ciImage ?? CIImage(image: inputImage)
-
-    guard let output = sepiaFilter.outputImage else {
-      print("Failed to generate sepia filter")
-
-      return
-    }
-
-    let fromRect = CGRect(origin: .zero, size: inputImage.size)
-
-    guard
-      let cgImage = SepiaFilterOperation.context.createCGImage(
-        output,
-        from: fromRect
-      )
-    else {
-      print("No image generated")
-
-      return
-    }
-
-    outputImage = UIImage(cgImage: cgImage)
-  }
-
-}
-
-// MARK: - ImageDataProvider
-
-extension SepiaFilterOperation: ImageDataProvider {
-
-  var image: UIImage? { return outputImage }
+  var image: UIImage? { get }
 
 }
