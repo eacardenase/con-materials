@@ -67,6 +67,12 @@ class AsyncOperation: Operation {
   }
 
   override func start() {
+    if isCancelled {
+      state = .finished
+
+      return
+    }
+
     main()
 
     state = .executing

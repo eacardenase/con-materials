@@ -36,6 +36,7 @@ class TiltShiftTableViewController: UITableViewController {
   private let context = CIContext()
   private let queue = OperationQueue()
   private var urls = [URL]()
+  private var operations = [IndexPath: [Operation]]()
 
   // MARK: - View Lifecycle
 
@@ -96,6 +97,29 @@ class TiltShiftTableViewController: UITableViewController {
     queue.addOperation(downloadOperation)
     queue.addOperation(filterOperation)
 
+    if let existingOperations = operations[indexPath] {
+      for operation in existingOperations {
+        operation.cancel()
+      }
+    }
+
+    operations[indexPath] = [filterOperation, downloadOperation]
+
     return cell
   }
+
+  // MARK: - UITableViewDelegate
+
+  override func tableView(
+    _ tableView: UITableView,
+    didEndDisplaying cell: UITableViewCell,
+    forRowAt indexPath: IndexPath
+  ) {
+    if let operations = operations[indexPath] {
+      for operation in operations {
+        operation.cancel()
+      }
+    }
+  }
+
 }

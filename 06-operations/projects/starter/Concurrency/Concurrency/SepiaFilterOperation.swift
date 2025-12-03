@@ -68,6 +68,8 @@ final class SepiaFilterOperation: AsyncOperation {
       return
     }
 
+    guard !isCancelled else { return }
+
     let fromRect = CGRect(origin: .zero, size: inputImage.size)
 
     guard
@@ -80,6 +82,8 @@ final class SepiaFilterOperation: AsyncOperation {
 
       return
     }
+
+    guard !isCancelled else { return }
 
     outputImage = UIImage(cgImage: cgImage)
 
