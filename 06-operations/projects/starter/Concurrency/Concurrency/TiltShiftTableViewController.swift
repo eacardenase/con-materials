@@ -33,7 +33,6 @@ class TiltShiftTableViewController: UITableViewController {
 
   // MARK: - Properties
 
-  private let context = CIContext()
   private let queue = OperationQueue()
   private var urls = [URL]()
   private var operations = [IndexPath: [Operation]]()

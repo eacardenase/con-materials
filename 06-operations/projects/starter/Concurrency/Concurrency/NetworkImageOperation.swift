@@ -35,7 +35,7 @@ final class NetworkImageOperation: AsyncOperation {
   var image: UIImage?
 
   private let url: URL
-  private let completion: ImageOperationCompletion
+  private let completionHandler: ImageOperationCompletion
   private var task: URLSessionDataTask?
 
   init(
@@ -43,7 +43,7 @@ final class NetworkImageOperation: AsyncOperation {
     completion: ImageOperationCompletion = nil
   ) {
     self.url = url
-    self.completion = completion
+    self.completionHandler = completion
 
     super.init()
   }
@@ -67,8 +67,8 @@ final class NetworkImageOperation: AsyncOperation {
 
       guard !self.isCancelled else { return }
 
-      if let completion {
-        completion(data, response, error)
+      if let completionHandler {
+        completionHandler(data, response, error)
 
         return
       }
